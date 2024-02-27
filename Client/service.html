@@ -31,17 +31,41 @@
         <div class="youtube-title">
           <span>Problems</span>
         </div>
-
-        <table id="dataTable">
-          <thead>
-            <tr>
-              <th>ID</th>
-              <th>Name</th>
-              <th>Algorithm</th>
-            </tr>
-          </thead>
-          <tbody id="dataBody"></tbody>
-        </table>
+        <div id="problem-section">
+          <div id="checkList">
+            <div id="dataSet" style="display: flex; align-items: center">
+              <div style="display: flex; align-items: center; flex-grow: 1">
+                <input
+                  type="text"
+                  id="searchInput"
+                  onkeyup="searchAlgorithms()"
+                  placeholder="알고리즘 검색"
+                />
+                <div
+                  id="selectedAlgorithms"
+                  style="display: flex; align-items: center"
+                >
+                  <h3 style="margin-left: 20px">선택된 알고리즘:</h3>
+                  <div id="selectedAlgorithmList"></div>
+                </div>
+              </div>
+              <button onclick="toggleTable()">제출</button>
+            </div>
+            <div id="algorithmList">
+              <!-- 여기에 알고리즘 목록이 자동으로 생성됩니다. -->
+            </div>
+          </div>
+          <table id="dataTable">
+            <thead>
+              <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Algorithm</th>
+              </tr>
+            </thead>
+            <tbody id="dataBody"></tbody>
+          </table>
+        </div>
       </div>
 
       <script src="./script/lectures.js"></script>
