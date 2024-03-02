@@ -1,21 +1,3 @@
-// const url = "http://localhost:8080/problem?id=wwqw58";
-// fetch(url)
-//   .then((response) => {
-//     return response.json();
-//   })
-//   .then((data) => {
-//     const apiData = data.data;
-//     const tableBody = document.getElementById("dataBody");
-
-//     apiData.forEach((item) => {
-//       const row = createRow(item);
-//       tableBody.appendChild(row);
-//     });
-//   })
-//   .catch((error) => {
-//     console.error("Error fetching data:", error);
-//   });
-
 function tableSetting(array) {
   let data1 = {
     data1: [
@@ -83,10 +65,9 @@ function tableSetting(array) {
   // 데이터 필터링
   let apiData1 = data1.data1.filter((item) => {
     let algorithms = JSON.parse(item.algorithm.replace(/'/g, '"'));
-    return array.some((algo) => algorithms.includes(algo));
+    return array;
   });
 
-  console.log(apiData1);
   const tableBody = document.getElementById("dataBody");
   // 기존 데이터 삭제
   tableBody.innerHTML = "";
@@ -242,7 +223,7 @@ function tableSetting(array) {
 }
 
 const algorithms = {
-  전체: -1,
+  전체: 25759,
   수학: 2515,
   구현: 2033,
   "다이나믹 프로그래밍": 1687,
@@ -476,46 +457,73 @@ function handleCheckboxChange() {
   );
   const algorithm = this.value;
 
-  if (this.checked) {
-    // 체크된 경우 선택된 알고리즘 목록에 추가
-    const listItem = document.createElement("span");
-
-    // 삭제 버튼 생성
-    const deleteButton = document.createElement("button");
-    deleteButton.textContent = "x";
-    deleteButton.onclick = function () {
-      // 해당 알고리즘 아이템 제거
-      const itemToRemove = this.parentNode; // 클릭한 버튼의 부모 요소 (리스트 아이템)
-      if (itemToRemove) {
-        selectedAlgorithmList.removeChild(itemToRemove);
-      }
-
-      // 체크박스 해제
-      const checkbox = document.getElementById(algorithm.replace(/\s/g, ""));
-      if (checkbox) {
-        checkbox.checked = false;
-      }
-    };
-
-    // 알고리즘 이름 추가
-    listItem.textContent = algorithm + "";
-
-    // 삭제 버튼을 리스트 아이템의 첫 번째 자식으로 추가
-    listItem.insertBefore(deleteButton, listItem.firstChild);
-
-    listItem.id = `${algorithm.replace(/\s/g, "")}ListItem`;
-    selectedAlgorithmList.appendChild(listItem); // 리스트 아이템 추가
-  } else {
-    // 체크 해제된 경우 선택된 알고리즘 목록에서 제거
-    const listItem = document.getElementById(
-      `${algorithm.replace(/\s/g, "")}ListItem`
+  if (algorithm === "전체") {
+    // 전체를 선택한 경우 다른 모든 체크박스 상태를 변경
+    const checkboxes = document.querySelectorAll(
+      "#algorithmList input[type='checkbox']"
     );
-    if (listItem) {
-      selectedAlgorithmList.removeChild(listItem);
+    checkboxes.forEach((checkbox) => {
+      checkbox.checked = this.checked;
+    });
+
+    // 선택된 알고리즘 목록 업데이트
+    if (this.checked) {
+      for (const [algorithm, value] of Object.entries(algorithms)) {
+        if (algorithm !== "전체") {
+          addToSelectedAlgorithmList(algorithm);
+        }
+      }
+    } else {
+      selectedAlgorithmList.innerHTML = ""; // 선택된 알고리즘 목록 비우기
+    }
+
+    // 전체를 선택한 경우 선택된 알고리즘 숨기기
+    const selectedAlgorithms =
+      selectedAlgorithmList.getElementsByTagName("span");
+    for (let i = 0; i < selectedAlgorithms.length; i++) {
+      selectedAlgorithms[i].style.display = "none";
+    }
+  } else {
+    // 개별 알고리즘 체크박스 변경 처리
+    if (this.checked) {
+      addToSelectedAlgorithmList(algorithm);
+    } else {
+      removeFromSelectedAlgorithmList(algorithm);
     }
   }
 }
 
+// 선택된 알고리즘 목록에 알고리즘 추가
+function addToSelectedAlgorithmList(algorithm) {
+  const listItem = document.createElement("span");
+  listItem.textContent = ` ${algorithm}`;
+  listItem.id = `${algorithm.replace(/\s/g, "")}ListItem`;
+
+  const deleteButton = document.createElement("button");
+  deleteButton.textContent = "x";
+  deleteButton.onclick = function () {
+    removeFromSelectedAlgorithmList(algorithm);
+
+    // 체크박스 해제
+    const checkbox = document.getElementById(algorithm.replace(/\s/g, ""));
+    if (checkbox) {
+      checkbox.checked = false;
+    }
+  };
+  listItem.insertBefore(deleteButton, listItem.firstChild);
+
+  selectedAlgorithmList.appendChild(listItem);
+}
+
+// 선택된 알고리즘 목록에서 알고리즘 제거
+function removeFromSelectedAlgorithmList(algorithm) {
+  const listItem = document.getElementById(
+    `${algorithm.replace(/\s/g, "")}ListItem`
+  );
+  if (listItem) {
+    selectedAlgorithmList.removeChild(listItem);
+  }
+}
 // 검색 기능을 담당하는 함수
 function searchAlgorithms() {
   const input = document.getElementById("searchInput");

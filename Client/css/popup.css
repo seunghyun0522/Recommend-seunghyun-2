@@ -1,7 +1,5 @@
 @import "./reset.css";
 @import "./variables.css";
-@import url("https://fonts.googleapis.com/css2?family=Black+Han+Sans&family=Open+Sans:wght@400;600&display=swap");
-
 body {
   width: 700px;
   background: var(--background--color);

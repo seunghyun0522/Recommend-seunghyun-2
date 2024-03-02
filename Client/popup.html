@@ -4,7 +4,11 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link rel="stylesheet" href="/Client/css/popup.css" />
+    <meta
+      http-equiv="Content-Security-Policy"
+      content="default-src 'self' gap:; script-src 'self' data: https://ssl.gstatic.com 'unsafe-eval'; object-src *; style-src 'self' data: 'unsafe-inline'; img-src 'self' data:; media-src 'self' data:; font-src 'self' data:; connect-src *"
+    />
+    <link rel="stylesheet" href="./css/popup.css" />
     <title>PopUp</title>
   </head>
   <body>
@@ -76,8 +80,8 @@
         </div>
       </div>
 
-      <script src="./script/background.js"></script>
-      <script src="./script/popup.js"></script>
+      <script type="text/javascript" src="./script/background.js"></script>
+      <script type="text/javascript" src="./script/popup.js"></script>
     </div>
   </body>
 </html>
