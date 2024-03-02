@@ -550,6 +550,7 @@ function searchAlgorithms() {
 window.onload = function () {
   generateAlgorithmList();
 };
+
 // 테이블 토글 함수
 function toggleTable() {
   const array = [];
@@ -572,3 +573,5 @@ function toggleTable() {
   console.log(array);
   tableSetting(array);
 }
+
+document.getElementById("submitBtn").addEventListener("click", toggleTable);
