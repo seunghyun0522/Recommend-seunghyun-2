@@ -1,225 +1,204 @@
+var raw = "";
+
 function tableSetting(array) {
-  let data1 = {
-    data1: [
-      {
-        number: 9206,
-        name: "나무 말고 꽃",
-        tier: 19,
-        algorithm: "['미적분학', '수학', '수치해석']",
-        time_condition: 1,
-        memory_condition: 128,
-        submission_count: 1204,
-        answer_submission_count: 204,
-        answered_people_count: 79,
-        correct_rate: 11.809,
-        avg_try: 8.47,
-      },
-      {
-        number: 27740,
-        name: "시프트 연산",
-        tier: 12,
-        algorithm: "['브루트포스 알고리즘', '해 구성하기', '그리디 알고리즘']",
-        time_condition: 2,
-        memory_condition: 512,
-        submission_count: 783,
-        answer_submission_count: 168,
-        answered_people_count: 129,
-        correct_rate: 27.273,
-        avg_try: 3.67,
-      },
-      {
-        number: 1166,
-        name: "선물",
-        tier: 8,
-        algorithm: "['이분 탐색']",
-        time_condition: 2,
-        memory_condition: 128,
-        submission_count: 5570,
-        answer_submission_count: 1307,
-        answered_people_count: 841,
-        correct_rate: 20.786,
-        avg_try: 4.81,
-      },
-    ],
-  };
-  const tierDict = {
-    6: "Silver5",
-    7: "Silver4",
-    8: "Silver3",
-    9: "Silver2",
-    10: "Silver1",
-    11: "Gold5",
-    12: "Gold4",
-    13: "Gold3",
-    14: "Gold2",
-    15: "Gold1",
-    16: "Platinum5",
-    17: "Platinum4",
-    18: "Platinum3",
-    19: "Platinum2",
-    20: "Platinum1",
-    21: "Diamond5",
-    22: "Diamond4",
-  };
+  console.log(array);
+  // 알고리즘 목록을 URL 파라미터 형식으로 변환하는 함수
+  function formatAlgorithms(array) {
+    // 배열 요소를 URL 파라미터 형식으로 변환
+    const formattedArray = array.map((item) => encodeURIComponent(item.trim()));
 
-  // 데이터 필터링
-  let apiData1 = data1.data1.filter((item) => {
-    let algorithms = JSON.parse(item.algorithm.replace(/'/g, '"'));
-    return array;
-  });
+    // 변환된 요소들을 합쳐서 문자열로 반환
+    return formattedArray.join(",");
+  }
+  const algorithmsQueryParam = formatAlgorithms(array);
+  const url = `http://172.16.42.205:8080/problem?id=llsy159&algorithms=${algorithmsQueryParam}`;
 
-  const tableBody = document.getElementById("dataBody");
-  // 기존 데이터 삭제
-  tableBody.innerHTML = "";
-  apiData1.forEach((item) => {
-    const row = createRow(item);
-    tableBody.appendChild(row);
-  });
+  console.log(url);
+  // Fetch를 통해 데이터 가져오고 가공하는 부분
+  fetch(url)
+    .then((response) => {
+      return response.json();
+    }) // JSON 형식으로 파싱
+    .then((data) => {
+      // 데이터를 가공하여 data1에 저장
+      const data1 = { data1: data }; // 가공된 데이터를 data1에 저장
 
-  function createRow(item) {
-    const row = document.createElement("tr");
+      const tierDict = {
+        "Not ratable": 0,
+        "Bronze V": 1,
+        "Bronze IV": 2,
+        "Bronze III": 3,
+        "Bronze II": 4,
+        "Bronze I": 5,
+        "Silver V": 6,
+        "Silver IV": 7,
+        "Silver III": 8,
+        "Silver II": 9,
+        "Silver I": 10,
+        "Gold V": 11,
+        "Gold IV": 12,
+        "Gold III": 13,
+        "Gold II": 14,
+        "Gold I": 15,
+        "Platinum V": 16,
+        "Platinum IV": 17,
+        "Platinum III": 18,
+        "Platinum II": 19,
+        "Platinum I": 20,
+        "Diamond V": 21,
+        "Diamond IV": 22,
+        "Diamond III": 23,
+        "Diamond II": 24,
+        "Diamond I": 25,
+        "Ruby V": 26,
+        "Ruby IV": 27,
+        "Ruby III": 28,
+        "Ruby II": 29,
+        "Ruby I": 30,
+        Master: 31,
+      };
 
-    const toggleButton = document.createElement("button");
-    toggleButton.textContent = "Toggle";
-    let algorithmVisible = false;
+      // 데이터 필터링
 
-    toggleButton.addEventListener("click", (event) => {
-      event.stopPropagation();
-      algorithmVisible = !algorithmVisible;
-      const algorithmCell = row.querySelector(".algorithm-cell");
-      if (algorithmVisible) {
-        algorithmCell.style.display = "table-cell";
-      } else {
+      let apiData1 = data1.data1.data.filter((item) => {
+        console.log(item);
+        let algorithms = JSON.parse(item.algorithm.replace(/'/g, '"'));
+
+        return array;
+      });
+
+      const tableBody = document.getElementById("dataBody");
+      // 기존 데이터 삭제
+      tableBody.innerHTML = "";
+      apiData1.forEach((item) => {
+        const row = createRow(item);
+        tableBody.appendChild(row);
+      });
+
+      function createRow(item) {
+        const row = document.createElement("tr");
+
+        const toggleButton = document.createElement("button");
+        toggleButton.textContent = "Toggle";
+        let algorithmVisible = false;
+
+        toggleButton.addEventListener("click", (event) => {
+          event.stopPropagation();
+          algorithmVisible = !algorithmVisible;
+          const algorithmCell = row.querySelector(".algorithm-cell");
+          if (algorithmVisible) {
+            algorithmCell.style.display = "table-cell";
+          } else {
+            algorithmCell.style.display = "none";
+          }
+        });
+
+        row.addEventListener("click", () => {
+          window.open(
+            `https://www.acmicpc.net/problem/${item.number}`,
+            "_blank"
+          );
+        });
+
+        const idCell = createCell(item.number, "center");
+        row.appendChild(idCell);
+
+        const nameTierContainer = document.createElement("td");
+        nameTierContainer.style.display = "flex";
+        nameTierContainer.style.alignItems = "center";
+        nameTierContainer.style.justifyContent = "center"; // 가로 방향 가운데 정렬
+        nameTierContainer.style.textAlign = "center";
+
+        const nameTierSpan = document.createElement("span");
+        const tierNumber = tierDict[item.tier];
+
+        nameTierSpan.textContent = item.name;
+        const tierImg = document.createElement("img");
+        tierImg.src = `https://static.solved.ac/tier_small/${tierNumber}.svg`;
+        tierImg.alt = `Tier ${tierNumber}`;
+        tierImg.style.width = "20px";
+        tierImg.style.height = "20px";
+        nameTierContainer.appendChild(tierImg);
+
+        nameTierContainer.appendChild(nameTierSpan);
+
+        row.appendChild(nameTierContainer);
+
+        const algorithmCell = createCell(item.algorithm, "center");
+        algorithmCell.classList.add("algorithm-cell");
         algorithmCell.style.display = "none";
+        row.appendChild(algorithmCell);
+
+        const toggleCell = document.createElement("td");
+        toggleCell.appendChild(toggleButton);
+        toggleCell.style.textAlign = "center";
+        row.appendChild(toggleCell);
+        applyTierColor(row, item.tier);
+        return row;
       }
-    });
 
-    row.addEventListener("click", () => {
-      window.open(`https://www.acmicpc.net/problem/${item.number}`, "_blank");
-    });
-
-    const idCell = createCell(item.number, "center");
-    row.appendChild(idCell);
-
-    const nameTierContainer = document.createElement("td");
-    nameTierContainer.style.display = "flex";
-    nameTierContainer.style.alignItems = "center";
-    nameTierContainer.style.justifyContent = "center"; // 가로 방향 가운데 정렬
-    nameTierContainer.style.textAlign = "center";
-
-    const nameTierSpan = document.createElement("span");
-    const tierNumber = item.tier;
-    nameTierSpan.textContent = item.name;
-    const tierImg = document.createElement("img");
-    tierImg.src = `https://static.solved.ac/tier_small/${tierNumber}.svg`;
-    tierImg.alt = `Tier ${tierNumber}`;
-    tierImg.style.width = "20px";
-    tierImg.style.height = "20px";
-    nameTierContainer.appendChild(tierImg);
-
-    nameTierContainer.appendChild(nameTierSpan);
-
-    row.appendChild(nameTierContainer);
-
-    const algorithmCell = createCell(item.algorithm, "center");
-    algorithmCell.classList.add("algorithm-cell");
-    algorithmCell.style.display = "none";
-    row.appendChild(algorithmCell);
-
-    const toggleCell = document.createElement("td");
-    toggleCell.appendChild(toggleButton);
-    toggleCell.style.textAlign = "center";
-    row.appendChild(toggleCell);
-    applyTierColor(row, tierNumber);
-    return row;
-  }
-
-  function createCell(text, align) {
-    const cell = document.createElement("td");
-    cell.textContent = text;
-    cell.style.textAlign = align;
-    return cell;
-  }
-
-  function applyTierColor(row, tierNumber) {
-    const toggleButton = row.querySelector("button");
-
-    if (tierDict[tierNumber] && tierDict[tierNumber].startsWith("Silver")) {
-      row.style.color = "rgb(56, 84, 110)";
-      toggleButton.style.color = "rgb(56, 84, 110)";
-      toggleButton.style.border = "1px solid rgb(56, 84, 110)";
-    } else if (
-      tierDict[tierNumber] &&
-      tierDict[tierNumber].startsWith("Gold")
-    ) {
-      row.style.color = "rgb(210, 133, 0)";
-      toggleButton.style.color = "rgb(210, 133, 0)";
-      toggleButton.style.border = "1px solid rgb(210, 133, 0)";
-    } else if (
-      tierDict[tierNumber] &&
-      tierDict[tierNumber].startsWith("Platinum")
-    ) {
-      row.style.color = "rgb(0, 199, 139)";
-      toggleButton.style.color = "rgb(0, 199, 139)";
-      toggleButton.style.border = "1px solid rgb(0, 199, 139)";
-    } else if (
-      tierDict[tierNumber] &&
-      tierDict[tierNumber].startsWith("Diamond")
-    ) {
-      row.style.color = "rgb(0, 158, 229)";
-      toggleButton.style.color = "rgb(0, 158, 229)";
-      toggleButton.style.border = "1px solid rgb(0, 158, 229)";
-    }
-    toggleButton.addEventListener("mouseover", () => {
-      if (tierDict[tierNumber] && tierDict[tierNumber].startsWith("Silver")) {
-        toggleButton.style.backgroundColor = "rgb(56, 84, 110)";
-        toggleButton.style.color = "white";
-      } else if (
-        tierDict[tierNumber] &&
-        tierDict[tierNumber].startsWith("Gold")
-      ) {
-        toggleButton.style.backgroundColor = "rgb(210, 133, 0)";
-        toggleButton.style.color = "white";
-      } else if (
-        tierDict[tierNumber] &&
-        tierDict[tierNumber].startsWith("Platinum")
-      ) {
-        toggleButton.style.backgroundColor = "rgb(0, 199, 139)";
-        toggleButton.style.color = "white";
-      } else if (
-        tierDict[tierNumber] &&
-        tierDict[tierNumber].startsWith("Diamond")
-      ) {
-        toggleButton.style.backgroundColor = "rgb(0, 158, 229)";
-        toggleButton.style.color = "white";
+      function createCell(text, align) {
+        const cell = document.createElement("td");
+        cell.textContent = text;
+        cell.style.textAlign = align;
+        return cell;
       }
-    });
 
-    toggleButton.addEventListener("mouseout", () => {
-      if (tierDict[tierNumber] && tierDict[tierNumber].startsWith("Silver")) {
-        toggleButton.style.backgroundColor = "transparent";
-        toggleButton.style.color = "rgb(56, 84, 110)"; // 기존 티어 색상으로 텍스트 색 원복
-      } else if (
-        tierDict[tierNumber] &&
-        tierDict[tierNumber].startsWith("Gold")
-      ) {
-        toggleButton.style.backgroundColor = "transparent";
-        toggleButton.style.color = "rgb(210, 133, 0)"; // 기존 티어 색상으로 텍스트 색 원복
-      } else if (
-        tierDict[tierNumber] &&
-        tierDict[tierNumber].startsWith("Platinum")
-      ) {
-        toggleButton.style.backgroundColor = "transparent";
-        toggleButton.style.color = "rgb(0, 199, 139)"; // 기존 티어 색상으로 텍스트 색 원복
-      } else if (
-        tierDict[tierNumber] &&
-        tierDict[tierNumber].startsWith("Diamond")
-      ) {
-        toggleButton.style.backgroundColor = "transparent";
-        toggleButton.style.color = "rgb(0, 158, 229)"; // 기존 티어 색상으로 텍스트 색 원복
+      function applyTierColor(row, tierNumber) {
+        const toggleButton = row.querySelector("button");
+
+        if (tierNumber && tierNumber.startsWith("Silver")) {
+          row.style.color = "rgb(56, 84, 110)";
+          toggleButton.style.color = "rgb(56, 84, 110)";
+          toggleButton.style.border = "1px solid rgb(56, 84, 110)";
+        } else if (tierNumber && tierNumber.startsWith("Gold")) {
+          row.style.color = "rgb(210, 133, 0)";
+          toggleButton.style.color = "rgb(210, 133, 0)";
+          toggleButton.style.border = "1px solid rgb(210, 133, 0)";
+        } else if (tierNumber && tierNumber.startsWith("Platinum")) {
+          row.style.color = "rgb(0, 199, 139)";
+          toggleButton.style.color = "rgb(0, 199, 139)";
+          toggleButton.style.border = "1px solid rgb(0, 199, 139)";
+        } else if (tierNumber && tierNumber.startsWith("Diamond")) {
+          row.style.color = "rgb(0, 158, 229)";
+          toggleButton.style.color = "rgb(0, 158, 229)";
+          toggleButton.style.border = "1px solid rgb(0, 158, 229)";
+        }
+        toggleButton.addEventListener("mouseover", () => {
+          if (tierNumber && tierNumber.startsWith("Silver")) {
+            toggleButton.style.backgroundColor = "rgb(56, 84, 110)";
+            toggleButton.style.color = "white";
+          } else if (tierNumber && tierNumber.startsWith("Gold")) {
+            toggleButton.style.backgroundColor = "rgb(210, 133, 0)";
+            toggleButton.style.color = "white";
+          } else if (tierNumber && tierNumber.startsWith("Platinum")) {
+            toggleButton.style.backgroundColor = "rgb(0, 199, 139)";
+            toggleButton.style.color = "white";
+          } else if (tierNumber && tierNumber.startsWith("Diamond")) {
+            toggleButton.style.backgroundColor = "rgb(0, 158, 229)";
+            toggleButton.style.color = "white";
+          }
+        });
+
+        toggleButton.addEventListener("mouseout", () => {
+          if (tierNumber && tierNumber.startsWith("Silver")) {
+            toggleButton.style.backgroundColor = "transparent";
+            toggleButton.style.color = "rgb(56, 84, 110)"; // 기존 티어 색상으로 텍스트 색 원복
+          } else if (tierNumber && tierNumber.startsWith("Gold")) {
+            toggleButton.style.backgroundColor = "transparent";
+            toggleButton.style.color = "rgb(210, 133, 0)"; // 기존 티어 색상으로 텍스트 색 원복
+          } else if (tierNumber && tierNumber.startsWith("Platinum")) {
+            toggleButton.style.backgroundColor = "transparent";
+            toggleButton.style.color = "rgb(0, 199, 139)"; // 기존 티어 색상으로 텍스트 색 원복
+          } else if (tierNumber && tierNumber.startsWith("Diamond")) {
+            toggleButton.style.backgroundColor = "transparent";
+            toggleButton.style.color = "rgb(0, 158, 229)"; // 기존 티어 색상으로 텍스트 색 원복
+          }
+        });
       }
-    });
-  }
+      // 이후에 원래 코드의 tableSetting 함수 호출 등을 진행
+    })
+    .catch((error) => console.log("error", error));
 }
 
 const algorithms = {

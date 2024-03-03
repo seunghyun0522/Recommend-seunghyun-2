@@ -2,139 +2,83 @@ let currentIndex = 0;
 const itemsPerSlide = 3; // 한 번에 보여줄 아이템의 개수를 설정해주세요.
 let totalItems = 0;
 const carousel = document.querySelector(".carousel");
-
-const intervalTime = 2000; // 3초
-let data = {
-  data: [
-    {
-      weakAlgorithm: "정렬",
-      link: "Bor_CRWEIXo",
-    },
-    {
-      weakAlgorithm: "정렬",
-      link: "KGyK-pNvWos",
-    },
-    {
-      weakAlgorithm: "정렬",
-      link: "iyl9bfp_8ag",
-    },
-    {
-      weakAlgorithm: "그래프 이론",
-      link: "aOhhNFTIeFI",
-    },
-    {
-      weakAlgorithm: "그래프 이론",
-      link: "4izGhUk2L1s",
-    },
-    {
-      weakAlgorithm: "그래프 이론",
-      link: "8dWT-bozhII",
-    },
-    {
-      weakAlgorithm: "다이나믹 프로그래밍",
-      link: "0bqfTzpWySY",
-    },
-    {
-      weakAlgorithm: "다이나믹 프로그래밍",
-      link: "5Lu34WIx2Us",
-    },
-    {
-      weakAlgorithm: "다이나믹 프로그래밍",
-      link: "eJC2oetXaNk",
-    },
-    {
-      weakAlgorithm: "다이나믹 프로그래밍",
-      link: "GtqHli8HIqk",
-    },
-    {
-      weakAlgorithm: "다이나믹 프로그래밍",
-      link: "EQMd8bTIf-8",
-    },
-  ],
-}; // 데이터를 담을 변수
 let timer; // 타이머 변수
-let apiData = data.data;
-totalItems = apiData.length;
+const intervalTime = 2000; // 3초
+let url2 = "http://172.16.42.205:8080/video?id=llsy159";
+fetch(url2)
+  .then((response) => {
+    return response.json();
+  })
+  .then((data) => {
+    let apiData = data.data;
 
-startCarousel(); // 캐러셀 시작
-showSlide(currentIndex); // 초기 아이템 표시
-function startCarousel() {
-  timer = setInterval(() => {
-    showNextItems();
-  }, intervalTime);
-}
+    totalItems = apiData.length;
 
-function stopCarousel() {
-  clearInterval(timer);
-}
+    startCarousel(); // 캐러셀 시작
+    showSlide(currentIndex); // 초기 아이템 표시
+    function startCarousel() {
+      timer = setInterval(() => {
+        showNextItems();
+      }, intervalTime);
+    }
 
-function showNextItems() {
-  const nextIndex = (currentIndex + itemsPerSlide) % totalItems;
+    function stopCarousel() {
+      clearInterval(timer);
+    }
 
-  showSlide(nextIndex);
-}
+    function showNextItems() {
+      const nextIndex = (currentIndex + itemsPerSlide) % totalItems;
 
-function showSlide(index) {
-  currentIndex = index;
+      showSlide(nextIndex);
+    }
 
-  carousel.innerHTML = "";
+    function showSlide(index) {
+      currentIndex = index;
 
-  const group = apiData.slice(index, index + itemsPerSlide);
+      carousel.innerHTML = "";
 
-  group.forEach((item) => {
-    const link = `https://www.youtube.com/watch?v=${item.link}`;
-    const thumbnailUrl = `https://img.youtube.com/vi/${item.link}/hqdefault.jpg`; // 썸네일 이미지 URL
+      const group = apiData.slice(index, index + itemsPerSlide);
 
-    const carouselItem = document.createElement("div");
-    carouselItem.classList.add("carousel-item");
+      group.forEach((item) => {
+        const link = `https://www.youtube.com/watch?v=${item.link}`;
+        const thumbnailUrl = `https://img.youtube.com/vi/${item.link}/hqdefault.jpg`; // 썸네일 이미지 URL
 
-    const linkElement = document.createElement("a");
-    linkElement.classList.add("carousel-link");
-    linkElement.href = link;
-    linkElement.target = "_blank";
-    linkElement.style.display = "flex";
-    linkElement.style.flexDirection = "column";
-    linkElement.style.alignItems = "center"; // 이미지와 텍스트를 수직 가운데 정렬
+        const carouselItem = document.createElement("div");
+        carouselItem.classList.add("carousel-item");
 
-    const thumbnailImage = document.createElement("img");
-    thumbnailImage.src = thumbnailUrl;
-    thumbnailImage.alt = item.weakAlgorithm;
-    thumbnailImage.style.width = "120px"; // 이미지 너비 설정
-    thumbnailImage.style.height = "80px"; // 이미지 높이 설정
-    thumbnailImage.style.borderRadius = "10px";
-    const weakAlgorithmElement = document.createElement("div");
-    weakAlgorithmElement.textContent = item.weakAlgorithm;
-    weakAlgorithmElement.style.marginTop = "10px"; // 텍스트에 위쪽 마진 추가
+        const linkElement = document.createElement("a");
+        linkElement.classList.add("carousel-link");
+        linkElement.href = link;
+        linkElement.target = "_blank";
+        linkElement.style.display = "flex";
+        linkElement.style.flexDirection = "column";
+        linkElement.style.alignItems = "center"; // 이미지와 텍스트를 수직 가운데 정렬
 
-    linkElement.appendChild(thumbnailImage);
-    linkElement.appendChild(weakAlgorithmElement); // weakAlgorithm 추가
-    carouselItem.appendChild(linkElement);
-    carousel.appendChild(carouselItem);
+        const thumbnailImage = document.createElement("img");
+        thumbnailImage.src = thumbnailUrl;
+        thumbnailImage.alt = item.weakAlgorithm;
+        thumbnailImage.style.width = "120px"; // 이미지 너비 설정
+        thumbnailImage.style.height = "80px"; // 이미지 높이 설정
+        thumbnailImage.style.borderRadius = "10px";
+        const weakAlgorithmElement = document.createElement("div");
+        weakAlgorithmElement.textContent = item.weakAlgorithm;
+        weakAlgorithmElement.style.marginTop = "10px"; // 텍스트에 위쪽 마진 추가
+
+        linkElement.appendChild(thumbnailImage);
+        linkElement.appendChild(weakAlgorithmElement); // weakAlgorithm 추가
+        carouselItem.appendChild(linkElement);
+        carousel.appendChild(carouselItem);
+      });
+    }
+
+    carousel.addEventListener("mouseenter", () => {
+      stopCarousel();
+    });
+
+    carousel.addEventListener("mouseleave", () => {
+      startCarousel();
+    });
+  })
+  .catch((error) => {
+    console.error("Error fetching data:", error);
   });
-}
-
-carousel.addEventListener("mouseenter", () => {
-  stopCarousel();
-});
-
-carousel.addEventListener("mouseleave", () => {
-  startCarousel();
-});
-
-// let url2 = "http://localhost:8080/video?id=wwqw58";
-// fetch(url2)
-//   .then((response) => {
-//     return response.json();
-//   })
-//   .then((data) => {
-//     apiData = data.data;
-//     totalItems = apiData.length;
-
-//     startCarousel(); // 캐러셀 시작
-//     showSlide(currentIndex); // 초기 아이템 표시
-//   })
-//   .catch((error) => {
-//     console.error("Error fetching data:", error);
-//   });
-
-// const url = "http://localhost:8080/problem?id=wwqw58";
