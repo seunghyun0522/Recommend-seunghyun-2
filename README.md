@@ -17,14 +17,19 @@
 ## Contributors
 
 <table>
-  <tbody>
-    <tr>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/llsy159"><img src="https://avatars.githubusercontent.com/u/73770924?v=100" width="100px;" alt="trankill1127"/><br /><sub><b>trankill1127</b></sub></a><br /><a href="#maintenance-trankill1127" title="develop">👩🏼‍💻</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/seunghyun0522"><img src="https://avatars.githubusercontent.com/u/75532258?v=100" width="100px;" alt="seunghyun0522"/><br /><sub><b>seunghyun0522</b></sub></a><br /><a href="#maintenance-seunghyun0522" title="develop">👩🏼‍💻</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/jeli01"><img src="https://avatars.githubusercontent.com/u/61683188?v=100" width="100px;" alt="jeli01"/><br /><sub><b>jeli01</b></sub></a><br /><a href="#maintenance-jeli01" title="develop">👩🏼‍💻</a></td>
-      <td align="center" valign="top" width="14.28%"><a href="https://github.com/llsy159"><img src="https://avatars.githubusercontent.com/u/98265506?v=100" width="100px;" alt="llsy159"/><br /><sub><b>llsy159</b></sub></a><br /><a href="#maintenance-llsy159" title="develop">👩🏼‍💻</a></td>
-    </tr>
-  </tbody>
+ <tr>
+    <td align="center"><a href="https://github.com/seunghyun0522"><img src="https://avatars.githubusercontent.com/seunghyun0522" width="130px;"></a></td>
+    <td align="center"><a href="https://github.com/trankill1127"><img src="https://avatars.githubusercontent.com/trankill1127" width="130px;"></a></td>    
+    <td align="center"><a href="https://github.com/jeli01"><img src="https://avatars.githubusercontent.com/jeli01" width="130px;"></a></td>    
+    <td align="center"><a href="https://github.com/llsy159"><img src="https://avatars.githubusercontent.com/llsy159" width="130px;"></a></td>
+  </tr>
+  <tr>
+    <td align="center"><a href="https://github.com/seunghyun0522"><b>seunghyun0522</b></a></td>
+    <td align="center"><a href="https://github.com/trankill1127"><b>gywls20</b></a></td>
+    <td align="center"><a href="https://github.com/jeli01"><b>whgek506</b></a></td>
+    <td align="center"><a href="https://github.com/llsy159"><b>gyuchanlee</b></a></td>
+
+  </tr>
 </table>
 
 ## Contents
