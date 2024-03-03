@@ -159,58 +159,61 @@ function handleScriptResults(results) {
                 section.classList.toggle("show-more")
               );
             });
-            let createLabelDiv = (text) => {
-              let labelDiv = document.createElement("div");
-              labelDiv.innerText = text;
-              labelDiv.style.marginBottom = "5px"; // Add margin-bottom to the div
-              labelDiv.style.display = "flex"; // Set display to flex for horizontal layout
-              labelDiv.style.justifyContent = "space-between"; // Arrange content with space-between
-              labelDiv.style.alignItems = "center"; // Center align items vertically
-              return labelDiv;
-            };
 
-            let timeComplexityDiv = document.getElementById("timeComplexity");
-            let spanTimeComplexity = createLabelDiv("Time");
-            timeComplexityDiv.parentNode.insertBefore(
-              spanTimeComplexity,
-              timeComplexityDiv
-            );
+            let timeComplexity = document.getElementById("timeComplexity");
+            let spanTimeComplexity = document.getElementById("Time");
+            spanTimeComplexity.innerText = "Time";
+            spanTimeComplexity.style.fontSize = "11px";
+            spanTimeComplexity.style.fontWeight = "700";
 
-            let spaceComplexityDiv = document.getElementById("spaceComplexity");
+            spanTimeComplexity.style.marginBottom = "5px"; // Add margin-bottom to the div
+            spanTimeComplexity.style.display = "flex"; // Set display to flex for horizontal layout
+            spanTimeComplexity.style.justifyContent = "space-between"; // Arrange content with space-between
+            spanTimeComplexity.style.alignItems = "center"; // Center align items vertically
 
-            let spanSpaceComplexity = createLabelDiv("Space");
-            spaceComplexityDiv.parentNode.insertBefore(
-              spanSpaceComplexity,
-              spaceComplexityDiv
-            );
-            let algorithmDiv = document.getElementById("algorithm");
-            let spanAlgorithm = createLabelDiv("Algorithm");
-            algorithmDiv.parentNode.insertBefore(spanAlgorithm, algorithmDiv);
+            let spaceComplexity = document.getElementById("spaceComplexity");
+            let spanSpaceComplexity = document.getElementById("Space");
+            spanSpaceComplexity.innerText = "Space";
+            spanSpaceComplexity.style.fontSize = "11px";
+            spanSpaceComplexity.style.marginBottom = "5px"; // Add margin-bottom to the div
+            spanSpaceComplexity.style.display = "flex"; // Set display to flex for horizontal layout
+            spanSpaceComplexity.style.justifyContent = "space-between"; // Arrange content with space-between
+            spanSpaceComplexity.style.alignItems = "center"; // Center align items vertically
+            spanSpaceComplexity.style.fontWeight = "700"; // Center align items vertically
+
+            let algorithm = document.getElementById("algorithm");
+            let spanAlgorithm = document.getElementById("Algorithm");
+            spanAlgorithm.style.fontSize = "11px";
+            spanAlgorithm.innerText = "Algorithm";
+            spanAlgorithm.style.marginBottom = "5px"; // Add margin-bottom to the div
+            spanAlgorithm.style.display = "flex"; // Set display to flex for horizontal layout
+            spanAlgorithm.style.justifyContent = "space-between"; // Arrange content with space-between
+            spanAlgorithm.style.alignItems = "center"; // Center align items vertically
+            spanAlgorithm.style.fontWeight = "700"; // Center align items vertically
 
             // Set text content using innerText
-            document.getElementById("timeComplexity").innerText = data.bigO;
-            document.getElementById("spaceComplexity").innerText =
+            document.getElementById("TimeContent").innerText = data.bigO;
+            document.getElementById("SpaceContent").innerText =
               data.spaceComplexDegree;
-            document.getElementById("algorithm").innerText = data.whatAlgo;
+            document.getElementById("AlgorithmContent").innerText =
+              data.whatAlgo;
 
             // Apply styles to the div elements (timeComplexity, spaceComplexity, algorithm)
-            [timeComplexityDiv, spaceComplexityDiv, algorithmDiv].forEach(
-              (div) => {
-                div.style.width = "50px"; // Set a fixed width
-                div.style.height = "50px"; // Set a fixed height
-                div.style.border = "1px solid #ccc";
-                div.style.display = "flex";
-
-                div.style.justifyContent = "center";
-                div.style.alignItems = "center";
-                div.style.padding = "10px";
-                div.style.fontSize = "10px";
-                div.style.borderRadius = "15px";
-                div.style.textAlign = "center";
-                div.style.marginBottom = "15px";
-                div.style.boxShadow = "0px 4px 4px 0px rgba(0, 0, 0, 0.25)";
-              }
-            );
+            [timeComplexity, spaceComplexity, algorithm].forEach((div) => {
+              div.style.width = "50px"; // Set a fixed width
+              div.style.height = "50px"; // Set a fixed height
+              div.style.border = "1px solid #ccc";
+              div.style.display = "flex";
+              div.style.flexDirection = "column";
+              div.style.justifyContent = "center";
+              div.style.alignItems = "center";
+              div.style.padding = "10px";
+              div.style.fontSize = "10px";
+              div.style.borderRadius = "15px";
+              div.style.textAlign = "center";
+              div.style.marginBottom = "15px";
+              div.style.boxShadow = "0px 4px 4px 0px rgba(0, 0, 0, 0.25)";
+            });
 
             // Add class to the parent container
             document
