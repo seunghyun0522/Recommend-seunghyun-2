@@ -16,7 +16,7 @@
 
 ## Contributors
 
-<table>
+<table align="center">
  <tr>
     <td align="center"><a href="https://github.com/seunghyun0522"><img src="https://avatars.githubusercontent.com/seunghyun0522" width="130px;"></a></td>
     <td align="center"><a href="https://github.com/trankill1127"><img src="https://avatars.githubusercontent.com/trankill1127" width="130px;"></a></td>    
