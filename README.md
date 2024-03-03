@@ -1,6 +1,6 @@
-<figure align="center">
+<div align="center">
     <img src="./background.png" width=300 style="max-width:100%";> 
-</figure>
+</div>
 <br>
 
 <h1 align="center">RECOMM&lt;&lt;END</h1>
@@ -53,9 +53,9 @@
 
 </br>
 
-<figure align="center" >
+<div align="center" >
 <img  src="./Client/assets/codeAnalysis.png" width=500/>
-</figure>
+</div>
 
 </br>
 
@@ -70,9 +70,9 @@ You can see three pieces of information in order.
 
 </br>
 
-<figure align="center" >
+<div align="center" >
 <img  src="./Client/assets/codeFail.png" width=500/>
-</figure>
+</div>
 
 </br>
 
@@ -83,9 +83,9 @@ It provides hints to improve your code.
 
 </br>
 
-<figure align="center" >
+<div align="center" >
 <img  src="./Client/assets/video.png" width=500/>
-</figure>
+</div>
 
 </br>
 
