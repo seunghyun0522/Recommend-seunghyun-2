@@ -553,7 +553,7 @@ window.onload = function () {
 
 // 테이블 토글 함수
 function toggleTable() {
-  const array = [];
+  let array = [];
   const table = document.getElementById("dataTable");
   if (table.style.display === "none") {
     table.style.display = "table";
@@ -570,7 +570,9 @@ function toggleTable() {
   for (let i = 0; i < selectedAlgorithms.length; i++) {
     array.push(selectedAlgorithms[i].textContent.trim().slice(1));
   }
-  console.log(array);
+  console.log(array.length);
+  if (array.length === 201) array = [];
+
   tableSetting(array);
 }
 
