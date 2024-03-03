@@ -282,11 +282,3 @@ function showHint(data) {
   console.log(data);
   document.getElementById("hint").innerText = data.contents;
 }
-
-document.getElementById("analyzeButton").addEventListener("click", function () {
-  // 버튼 클릭 시 loader 표시
-  document.querySelector(".loader").style.display = "block";
-
-  // 3초 후에 showResponse 함수 호출
-  setTimeout(showResponse, 3000);
-});
