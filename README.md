@@ -103,5 +103,6 @@ It analyzes the user's vulnerable algorithms and recommends YouTube lectures tha
   If you don't select anything, you can get a random recommendation of the problem.
 
 - Algorithm
+
   You can choose the algorithm you want and get recommendations for problems that fit that type.
   For example, if you check math and implementation, you can get a recommendation for a problem that includes both math and implementation.
