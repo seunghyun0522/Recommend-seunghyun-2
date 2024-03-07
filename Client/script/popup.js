@@ -110,7 +110,7 @@ function handleScriptResults(results) {
         code: targetData[0],
       };
 
-      fetch("http://172.16.42.205:8080/analysis/correct", {
+      fetch("http://3.106.12.217:8080/analysis/correct", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",
@@ -249,7 +249,7 @@ function handleScriptResults(results) {
         code: targetData[0],
       };
 
-      fetch("http://172.16.42.205:8080/analysis/wrong", {
+      fetch("http://3.106.12.217:8080/analysis/wrong", {
         method: "POST",
         headers: {
           "Content-Type": "application/json",

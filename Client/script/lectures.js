@@ -4,7 +4,7 @@ let totalItems = 0;
 const carousel = document.querySelector(".carousel");
 let timer; // 타이머 변수
 const intervalTime = 2000; // 3초
-let url2 = "http://172.16.42.205:8080/video?id=llsy159";
+let url2 = "http://3.106.12.217:8080/video?id=llsy159";
 fetch(url2)
   .then((response) => {
     return response.json();

@@ -11,7 +11,7 @@ function tableSetting(array) {
     return formattedArray.join(",");
   }
   const algorithmsQueryParam = formatAlgorithms(array);
-  const url = `http://172.16.42.205:8080/problem?id=llsy159&algorithms=${algorithmsQueryParam}`;
+  const url = `http://3.106.12.217:8080/problem?id=llsy159&algorithms=${algorithmsQueryParam}`;
 
   console.log(url);
   // Fetch를 통해 데이터 가져오고 가공하는 부분
